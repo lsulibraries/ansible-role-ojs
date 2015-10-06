@@ -49,3 +49,13 @@
 
 #- name: Install ojs
 #  command: "cd {{ wwwroot }} && php tools/install.php en_US '' utf-8 utf8 utf8 /var/www/html/files sha1 ojs ojs ojs jpeak5@lsu.edu mysql localhost ojs ojs ojs n localhost.org y"
+
+- name: Use LSU CSS
+  template:
+    src: files/common.css
+    dest: "{{ wwwroot }}/lib/pkp/styles/common.css"
+
+- name: Get jquery for LSU theme
+  get_url:
+    url: http://code.jquery.com/jquery-1.11.3.min.js
+    dest: "{{ wwwroot }}/lib/pkp/js/lib/jquery/jquery-.min.js"
