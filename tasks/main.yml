@@ -1,0 +1,51 @@
+---
+- name: Is ojs source installed ?
+  stat: 
+    path: "{{ wwwroot }}/config.TEMPLATE.inc.php"
+  register: ojs_source
+
+- name: Delete default webroot folder to make way for the application.
+  file: 
+    state: absent
+    path: "{{ wwwroot }}"
+  when: ojs_source.stat.exists == False
+
+- name: Get OJS source
+  git:
+    version: "{{ ojs_version }}"
+    dest: "{{ wwwroot }}"
+    repo: https://github.com/pkp/ojs.git
+    accept_hostkey: yes
+  when: ojs_source.stat.exists == False 
+    
+- template: 
+    src: config.inc.php.j2
+    dest: "{{ wwwroot }}/config.inc.php"
+
+- name: Set permissions.
+  file:
+    path: "{{ wwwroot }}/{{ item }}"
+    owner: www-data
+    group: root
+    mode: 0740
+  with_items:
+    - config.inc.php
+    - public
+    - cache
+    - cache/t_cache
+    - cache/t_config
+    - cache/t_compile
+    - cache/_db
+
+- name: Create submissions dir.
+  file:
+    path: "{{ files_dir }}"
+    state: directory
+    owner: www-data
+    group: root
+    mode: 0740
+
+# TODO: make sure this is not web-accessible
+
+#- name: Install ojs
+#  command: "cd {{ wwwroot }} && php tools/install.php en_US '' utf-8 utf8 utf8 /var/www/html/files sha1 ojs ojs ojs jpeak5@lsu.edu mysql localhost ojs ojs ojs n localhost.org y"
