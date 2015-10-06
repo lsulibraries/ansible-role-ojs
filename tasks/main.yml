@@ -55,6 +55,11 @@
     src: files/common.css
     dest: "{{ wwwroot }}/lib/pkp/styles/common.css"
 
+- name: Use LSU footer
+  template:
+    src: files/footer.tpl
+    dest: "{{ wwwroot }}/templates/common/footer.tpl"
+
 - name: Get jquery for LSU theme
   get_url:
     url: http://code.jquery.com/jquery-1.11.3.min.js
