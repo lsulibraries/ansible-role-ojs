@@ -1,0 +1,19 @@
+---
+base_url: "http://localhost:8888"
+dbhost: localhost
+dbuser: ojs
+dbpass: ojs
+dbnanme: ojs
+debug: Off
+files_dir: /var/www/files
+force_login_ssl: Off
+encryption: sha1
+oai_repository_id: "localhost.example.com"
+captcha: On
+show_stats: On
+show_stacktrace: Off
+display_errors: On
+deprecation_warnings: Off
+
+ojs_repo: https://github.com/pkp/ojs.git
+ojs_version: ojs-2_4_5-0
