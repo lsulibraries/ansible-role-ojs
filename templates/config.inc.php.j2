@@ -115,10 +115,10 @@ show_upgrade_warning = On
 [database]
 
 driver = mysql
-host = localhost
-username = ojs
-password = ojs
-name = ojs
+host = {{ dbhost }}
+username = {{ dbuser }}
+password = {{ dbpass }}
+name = {{ dbname }}
 
 ; Enable persistent connections
 persistent = Off
